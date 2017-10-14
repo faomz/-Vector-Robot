@@ -10,18 +10,18 @@
       <TargetName>Robot</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F407ZG</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.1.0.8</PackID>
+          <PackID>Keil.STM32F4xx_DFP.2.9.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
-          <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) IRAM2(0x10000000,0x10000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
+          <Cpu>IROM(0x08000000,0x100000) IRAM(0x20000000,0x20000) IRAM2(0x10000000,0x10000) CPUTYPE("Cortex-M4") FPU2 CLOCK(168000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024 -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZG$Flash\STM32F4xx_1024.FLM))</FlashDriverDll>
-          <DeviceId>6105</DeviceId>
+          <DeviceId>0</DeviceId>
           <RegisterFile>$$Device:STM32F407ZG$Device\Include\stm32f4xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
@@ -29,7 +29,7 @@
           <Linker></Linker>
           <OHString></OHString>
           <InfinionOptionDll></InfinionOptionDll>
-          <SLE66CMisc>-DSTM32F40_41xxx</SLE66CMisc>
+          <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
           <SFDFile>$$Device:STM32F407ZG$SVD\STM32F40x.svd</SFDFile>
@@ -48,7 +48,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>..\OBJ\</OutputDirectory>
-          <OutputName>Robot</OutputName>
+          <OutputName>LED</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -109,11 +109,11 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments>-MPU -REMAP</SimDllArguments>
+          <SimDllArguments> -REMAP -MPU</SimDllArguments>
           <SimDlgDll>DCM.DLL</SimDlgDll>
           <SimDlgDllArguments>-pCM4</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
-          <TargetDllArguments>-MPU</TargetDllArguments>
+          <TargetDllArguments> -MPU</TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
           <TargetDlgDllArguments>-pCM4</TargetDlgDllArguments>
         </DllOption>
@@ -133,11 +133,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4096</DriverSelection>
+            <DriverSelection>4099</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash2>Segger\JL2CM3.dll</Flash2>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -313,7 +313,7 @@
             <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
-            <OneElfS>0</OneElfS>
+            <OneElfS>1</OneElfS>
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
@@ -324,8 +324,8 @@
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
             <useXO>0</useXO>
-            <v6Lang>0</v6Lang>
-            <v6LangP>0</v6LangP>
+            <v6Lang>1</v6Lang>
+            <v6LangP>1</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -333,9 +333,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER,__FPU_USED=1</Define>
+              <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\FWLIB\STM32F4xx_StdPeriph_Driver\inc;..\USER;..\HARDWARE\LED;..\UCOSIII\uC-CPU;..\UCOSIII\uC-LIB;..\UCOSIII\uCOS-III;..\UCOSIII\UCOS_BSP;..\UCOSIII\uCOS_CONFIG;..\UCOSIII\uCOS-III\Source;..\UCOSIII\uC-CPU\ARM-Cortex-M4\RealView;..\UCOSIII\uC-LIB\Ports\ARM-Cortex-M4\RealView;..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M4\Generic\RealView;..\HARDWARE\LED;..\HARDWARE\ADC</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\FWLIB\inc;..\HARDWARE\ADC;..\HARDWARE\MOTOR;..\USER;..\SYSTEM;..\HARDWARE\KEY;..\ROBOT\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -405,74 +405,9 @@
               <FilePath>..\HARDWARE\LED\led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_adc.c</FileName>
+              <FileName>key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\HARDWARE\ADC\bsp_adc.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>CORE</GroupName>
-          <Files>
-            <File>
-              <FileName>core_cm4.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CORE\core_cm4.h</FilePath>
-            </File>
-            <File>
-              <FileName>core_cm4_simd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CORE\core_cm4_simd.h</FilePath>
-            </File>
-            <File>
-              <FileName>startup_stm32f40_41xxx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\CORE\startup_stm32f40_41xxx.s</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>FWLIB</GroupName>
-          <Files>
-            <File>
-              <FileName>misc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\misc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_syscfg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c</FilePath>
+              <FilePath>..\HARDWARE\KEY\key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -497,225 +432,107 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>TASKER</GroupName>
-        </Group>
-        <Group>
-          <GroupName>UCOSIII_BSP</GroupName>
+          <GroupName>CORE</GroupName>
           <Files>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\UCOS_BSP\bsp.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>UCOSIII_CPU</GroupName>
-          <Files>
-            <File>
-              <FileName>cpu_c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uC-CPU\ARM-Cortex-M4\RealView\cpu_c.c</FilePath>
-            </File>
-            <File>
-              <FileName>cpu_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uC-CPU\cpu_core.c</FilePath>
-            </File>
-            <File>
-              <FileName>cpu_a.asm</FileName>
+              <FileName>startup_stm32f40_41xxx.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\UCOSIII\uC-CPU\ARM-Cortex-M4\RealView\cpu_a.asm</FilePath>
+              <FilePath>..\CORE\startup_stm32f40_41xxx.s</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>UCOSIII_LIB</GroupName>
+          <GroupName>FWLIB</GroupName>
           <Files>
             <File>
-              <FileName>lib_ascii.c</FileName>
+              <FileName>misc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_ascii.c</FilePath>
+              <FilePath>..\FWLIB\src\misc.c</FilePath>
             </File>
             <File>
-              <FileName>lib_math.c</FileName>
+              <FileName>stm32f4xx_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_math.c</FilePath>
+              <FilePath>..\FWLIB\src\stm32f4xx_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>lib_mem.c</FileName>
+              <FileName>stm32f4xx_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_mem.c</FilePath>
+              <FilePath>..\FWLIB\src\stm32f4xx_rcc.c</FilePath>
             </File>
             <File>
-              <FileName>lib_str.c</FileName>
+              <FileName>stm32f4xx_syscfg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_str.c</FilePath>
+              <FilePath>..\FWLIB\src\stm32f4xx_syscfg.c</FilePath>
             </File>
             <File>
-              <FileName>lib_mem_a.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\Ports\ARM-Cortex-M4\RealView\lib_mem_a.asm</FilePath>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_dma.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>UCOSIII_CORE</GroupName>
+          <GroupName>ROBOT</GroupName>
           <Files>
             <File>
-              <FileName>os_cfg_app.c</FileName>
+              <FileName>robot_detect.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_cfg_app.c</FilePath>
+              <FilePath>..\ROBOT\src\robot_detect.c</FilePath>
             </File>
             <File>
-              <FileName>os_core.c</FileName>
+              <FileName>robot_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_core.c</FilePath>
+              <FilePath>..\ROBOT\src\robot_motor.c</FilePath>
             </File>
             <File>
-              <FileName>os_dbg.c</FileName>
+              <FileName>robot_action.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_dbg.c</FilePath>
+              <FilePath>..\ROBOT\src\robot_action.c</FilePath>
             </File>
             <File>
-              <FileName>os_flag.c</FileName>
+              <FileName>robot.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_flag.c</FilePath>
+              <FilePath>..\ROBOT\src\robot.c</FilePath>
             </File>
             <File>
-              <FileName>os_int.c</FileName>
+              <FileName>robot_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_int.c</FilePath>
+              <FilePath>..\ROBOT\src\robot_adc.c</FilePath>
             </File>
             <File>
-              <FileName>os_mem.c</FileName>
+              <FileName>robot_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_mem.c</FilePath>
+              <FilePath>..\ROBOT\src\robot_debug.c</FilePath>
             </File>
             <File>
-              <FileName>os_msg.c</FileName>
+              <FileName>robot_servo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_msg.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_mutex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_mutex.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_pend_multi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_pend_multi.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_prio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_prio.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_q.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_q.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_sem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_sem.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_stat.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_stat.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_task.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_tick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_tick.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_time.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_time.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_tmr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_tmr.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_var.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_var.c</FilePath>
+              <FilePath>..\ROBOT\src\robot_servo.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>UCOSIII_PORT</GroupName>
+          <GroupName>README</GroupName>
           <Files>
             <File>
-              <FileName>os_cpu.h</FileName>
+              <FileName>readme.txt</FileName>
               <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M4\Generic\RealView\os_cpu.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_cpu_c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M4\Generic\RealView\os_cpu_c.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_cpu_a.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M4\Generic\RealView\os_cpu_a.asm</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>UCOSIII_CONFIG</GroupName>
-          <Files>
-            <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\app_cfg.h</FilePath>
-            </File>
-            <File>
-              <FileName>cpu_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\cpu_cfg.h</FilePath>
-            </File>
-            <File>
-              <FileName>includes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\includes.h</FilePath>
-            </File>
-            <File>
-              <FileName>lib_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\lib_cfg.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_app_hooks.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\os_app_hooks.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_app_hooks.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\os_app_hooks.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\os_cfg.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_cfg_app.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS_CONFIG\os_cfg_app.h</FilePath>
+              <FilePath>..\readme.txt</FilePath>
             </File>
           </Files>
         </Group>

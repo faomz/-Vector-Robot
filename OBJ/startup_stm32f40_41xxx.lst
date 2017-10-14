@@ -869,10 +869,12 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=..\obj\startup_stm32f40_41xxx.d -o..\obj\startup_stm32f40_41xxx
-.o -IE:\学习资料\比赛\华北五省机器人大赛\2017年\程序\USER\RTE -IE:\Apps\KeilARM
-\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include -ID:\Apps\KeilARM\ARM\CMSIS\I
-nclude --predefine="__UVISION_VERSION SETA 521" --predefine="STM32F40_41xxx SET
-A 1" --list=..\obj\startup_stm32f40_41xxx.lst ..\CORE\startup_stm32f40_41xxx.s
+.o -IE:\学习资料\比赛\华北五省机器人大赛\2017年\程序\USER\RTE\_Robot -I"D:\Prog
+ram Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F
+4xx\Include" -I"D:\Program Files\Keil\ARM\CMSIS\Include" -I"D:\Program Files\Ke
+il\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include" --predefine="__UVISION_VER
+SION SETA 522" --predefine="STM32F407xx SETA 1" --list=..\obj\startup_stm32f40_
+41xxx.lst ..\CORE\startup_stm32f40_41xxx.s
 
 
 

@@ -1,6 +1,6 @@
 # include "bsp_adc.h"
 
-uint16_t ADC1ConvValue[16];
+uint16_t ADC1ConvValue[ADC_CHANNEL_NUM];
 
 const uint32_t SampleFreqTable[][2] =
 {
@@ -60,15 +60,15 @@ void BSP_ADC_GPIO_Config(void)
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	//
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;     //
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	//
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	//
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5;     //
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	//
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	//
-	GPIO_Init(GPIOC, &GPIO_InitStructure);
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;     //
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	//
+//	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	//
+//	GPIO_Init(GPIOB, &GPIO_InitStructure);
+//	
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5;     //
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	//
+//	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	//
+//	GPIO_Init(GPIOC, &GPIO_InitStructure);
 }	
 //函数功能：
 //入口参数：
@@ -89,12 +89,12 @@ void BSP_ADC_CH_Config(void)
 	
 	//ADC2的配置
 	ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;  //数据宽度12位
-	ADC_InitStructure.ADC_ScanConvMode = DISABLE;   //扫描转换模式关闭
-	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;  //连接转换模式关闭
+	ADC_InitStructure.ADC_ScanConvMode = ENABLE;   //扫描转换模式关闭
+	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;  //连接转换模式关闭
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;  //数据右对齐
 	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_Rising;//外部触发开启，采用定时器触发
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_CC1;//定时器1的通道1触发
-	ADC_InitStructure.ADC_NbrOfConversion = 16;//转换通道16个
+	ADC_InitStructure.ADC_NbrOfConversion = ADC_CHANNEL_NUM;//转换通道14个
 	ADC_Init(ADC1,&ADC_InitStructure);
 	
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_0, 1, ADC_SampleTime_3Cycles); //
@@ -105,16 +105,18 @@ void BSP_ADC_CH_Config(void)
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_5, 6, ADC_SampleTime_3Cycles); //
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_6, 7, ADC_SampleTime_3Cycles); //
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_7, 8, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_8, 9, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_9, 10, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_10, 11, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_11, 12, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_12, 13, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_13, 14, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_14, 15, ADC_SampleTime_3Cycles); //
-	ADC_RegularChannelConfig(ADC1,ADC_Channel_15, 16, ADC_SampleTime_3Cycles); //
+	
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_8, 9, ADC_SampleTime_3Cycles); //
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_9, 10, ADC_SampleTime_3Cycles); //
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_10, 11, ADC_SampleTime_3Cycles); //
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_11, 12, ADC_SampleTime_3Cycles); //
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_12, 13, ADC_SampleTime_3Cycles); //
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_13, 14, ADC_SampleTime_3Cycles); //
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_14, 15, ADC_SampleTime_3Cycles); //
+//	ADC_RegularChannelConfig(ADC1,ADC_Channel_15, 16, ADC_SampleTime_3Cycles); //
+	
 	ADC_DMARequestAfterLastTransferCmd(ADC1,ENABLE);//
-	ADC_DMACmd(ADC1,ENABLE);//先关闭DMA
+	ADC_DMACmd(ADC1,ENABLE);//使能DMA
 	ADC_Cmd(ADC1,ENABLE);	//使能ADC1
 }
 
@@ -124,10 +126,10 @@ void BSP_ADC_DMA_Config(void)
 	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);
 		
-	DMA_InitStructure.DMA_Channel = DMA_Channel_0; //DMAÍ¨µÀ0
-	DMA_InitStructure.DMA_BufferSize = 16;   //ÄÚ´æ´óÐ¡
-	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;//DMA´«Êä·½ÏòÎªÍâÉèµ½ÄÚ´æ
-	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;//²»Ê¹ÓÃFIFO
+	DMA_InitStructure.DMA_Channel = DMA_Channel_0; //
+	DMA_InitStructure.DMA_BufferSize = ADC_CHANNEL_NUM;   //
+	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;//
+	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;//
 	DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_HalfFull;
 	DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&ADC1ConvValue; 
 	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
@@ -140,7 +142,7 @@ void BSP_ADC_DMA_Config(void)
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
 	DMA_Init(DMA2_Stream0,&DMA_InitStructure);
-	DMA_Cmd(DMA2_Stream0,ENABLE);//Ê¹ÄÜDMA2µÄÊý¾ÝÁ÷0
+	DMA_Cmd(DMA2_Stream0,ENABLE);//
 }	
 
 void BSP_ADC_TIM_Config(void)
