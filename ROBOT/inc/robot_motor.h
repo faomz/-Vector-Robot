@@ -6,16 +6,7 @@
 # define CHESS_MODE		0x01
 # define ATTACK_MODE	0x02
 
-//# define ROBOT_M1_PWM_TIM
-//# define ROBOT_M1_PWM_GPIO_PORT
-//# define ROBOT_M1_PWM_GPIO_PIN
-
-//# define ROBOT_M2_PWM_TIM
-//# define ROBOT_M2_PWM_GPIO_PORT
-//# define ROBOT_M2_PWM_GPIO_PIN
-
-
-
+/* Definition of motor control pin */
 # define ROBOT_MOTOR_EN_RCC_ALL		(RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOB)
 
 # define ROBOT_M1_ENA_GPIO_PORT		GPIOB
@@ -56,22 +47,24 @@
 														
 # define Robot_Backward()	{	M1_Backward(); M2_Backward();}
 
-
-typedef enum{POSITIVE = 0x01, NEGETIVE}Dirction_ENUM;
-typedef enum{FRONT_LEFT = 0x00,
+/* Direction definition */
+typedef enum{POSITIVE = 0x00,
+						 NEGETIVE, 
+						 FRONT_LEFT, 
 						 FRONT_RIGHT,
 						 BACK_LEFT,
-						 BACK_RIGHT	}ROBOT_POS_ENUM;
+						 BACK_RIGHT}ROBOT_POS_ENUM;
+/* The robot structure defines the basic properties of the robot */
 typedef struct{
-	uint8_t dirction;			//
-	uint8_t RobotMode; 
-	uint8_t M1_Dirction, M2_Dirction; //
-	uint32_t M1_pwm,M2_pwm;  //
-	uint8_t HandDirction;
-	uint32_t ModeSpeed;
+	uint8_t dirction;			/* dirctio of Robot */
+	uint8_t RobotMode;    /* Robot mode */
+	uint8_t M1_Dirction, M2_Dirction; /* The direction of rotation of the motor */
+	uint32_t M1_pwm,M2_pwm;  /* Motor PWM */
+	uint8_t HandDirction;    /* Head direction, indicating upper body movements */
+	uint32_t ModeSpeed;      /* Mode speed, different mode forward speed is different */
 	
-	uint8_t IsChess;  //
-	uint8_t IsEdge;  //
+	uint8_t IsChess;  /* Whether the chess is detected, the variable is only valid for the push chess mode */
+	uint8_t IsEdge;  /* Whether the edge is detected */
 }Robot_Dev;
 	
 											
@@ -85,13 +78,13 @@ void robot_MotorMove(uint16_t time);
 
 void robot_OutOfBounds(uint8_t RobotPos);
 
-void robot_FrontLeftOut(void);
-void robot_FrontRightOut(void);
-void robot_BackLeftOut(void);
-void robot_BackRightOut(void);
+//void robot_FrontLeftOut(void);
+//void robot_FrontRightOut(void);
+//void robot_BackLeftOut(void);
+//void robot_BackRightOut(void);
 void robot_UpPlatform(void);
 									
-void robot_WaitChessFail(uint8_t ChessPos);
+//void robot_WaitChessFail(uint8_t ChessPos);
 
 void robot_SetDirction(void);
 

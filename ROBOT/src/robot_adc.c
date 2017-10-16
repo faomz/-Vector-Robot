@@ -29,7 +29,7 @@ const uint32_t SampleFreqTable[][2] =
 	{16800,     10000}, //1sps
 };
 
-uint8_t SampleTime = 3;
+uint8_t SampleTime = 9;
 
 /*
 *********************************************************************************************************
@@ -73,7 +73,7 @@ void robot_PhoADC_CHConfig(void)
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_5, 6, ADC_SampleTime_15Cycles); //
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_6, 7, ADC_SampleTime_15Cycles); //
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_7, 8, ADC_SampleTime_15Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_12, 9, ADC_SampleTime_3Cycles); //
+	ADC_RegularChannelConfig(ADC1,ADC_Channel_12, 9, ADC_SampleTime_3Cycles); //
 //	ADC_RegularChannelConfig(ADC1,ADC_Channel_8, 9, ADC_SampleTime_3Cycles); //
 //	ADC_RegularChannelConfig(ADC1,ADC_Channel_9, 10, ADC_SampleTime_3Cycles); //
 //	ADC_RegularChannelConfig(ADC1,ADC_Channel_10, 11, ADC_SampleTime_3Cycles); //
@@ -109,8 +109,11 @@ void robot_PhoADC_GPIOConfig(void)
 
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 |
-																GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_0;
+																GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);	
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	
 //	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_B_GPIO_PIN;
 //	GPIO_Init(ROBOT_RANG_B_GPIO_PORT, &GPIO_InitStructure);	

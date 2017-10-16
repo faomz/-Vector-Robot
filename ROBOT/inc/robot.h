@@ -11,7 +11,12 @@
 # include "led.h"
 # include "usart.h"
 
-# define ROBOT_DEBUG 1u
+# if ROBOT_DEBUG > 0u
+	# if DEBUG_SENSOR_REPORT > 0u
+		# include "ano.h"
+	# endif
+# endif
+
 
 # define ROBOT_MODE		
 

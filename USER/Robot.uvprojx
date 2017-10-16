@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\FWLIB\inc;..\HARDWARE\ADC;..\HARDWARE\MOTOR;..\USER;..\SYSTEM;..\HARDWARE\KEY;..\ROBOT\inc</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\FWLIB\inc;..\HARDWARE\ADC;..\HARDWARE\MOTOR;..\USER;..\SYSTEM;..\HARDWARE\KEY;..\ROBOT\inc;..\HARDWARE\OLED</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -408,6 +408,11 @@
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\KEY\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\OLED\oled.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -498,11 +503,6 @@
               <FileName>robot_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ROBOT\src\robot_motor.c</FilePath>
-            </File>
-            <File>
-              <FileName>robot_action.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ROBOT\src\robot_action.c</FilePath>
             </File>
             <File>
               <FileName>robot.c</FileName>

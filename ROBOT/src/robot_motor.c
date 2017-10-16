@@ -36,20 +36,20 @@ void robot_MotorStrConfig(void)
 	Robot.dirction = POSITIVE;		//
 	Robot.M1_Dirction = POSITIVE;
 	Robot.M2_Dirction = POSITIVE;
-	Robot.M1_pwm = 1000;
-	Robot.M2_pwm = 500;
+	Robot.M1_pwm = 200;
+	Robot.M2_pwm = 200;
 	Robot.IsChess = 0;
 	Robot.IsEdge = 0;
 	Robot.HandDirction = 0x00; //
 	
 
-		Robot.RobotMode = CHESS_MODE;
+		Robot.RobotMode = ATTACK_MODE;
 	if(Robot.RobotMode == CHESS_MODE)
 		Robot.ModeSpeed = 260;
 	else if(Robot.RobotMode == ATTACK_MODE)
 		Robot.ModeSpeed = 400;
 	
-	robot_MotorMove(0);
+//	robot_MotorMove(0);
 }
 
 /*
@@ -179,25 +179,26 @@ void robot_OutOfBounds(uint8_t RobotPos)
 	switch(RobotPos)
 	{
 		case FRONT_LEFT:  /* 左前方出界 */
-		{
-			Robot.dirction = NEGETIVE;  /* 车子换向 */
-			Robot.M1_Dirction = NEGETIVE; 
-			Robot.M2_Dirction = NEGETIVE;
-			if(Robot.RobotMode == ATTACK_MODE)  /*  攻击模式和推棋子模式的回退速度不一样 */
-			{
-				Robot.M1_pwm = 400;
-				Robot.M2_pwm = 380;
-				robot_MotorMove(100);
-			}else if(Robot.RobotMode == CHESS_MODE)
-			{
-				Robot.M1_pwm = 300;
-				Robot.M2_pwm = 300;
-				robot_MotorMove(200);
-				
-				Robot.M2_Dirction = POSITIVE;
-				robot_MotorMove(50);
-			}
-		}break;
+//		{
+//			Robot.dirction = NEGETIVE;  /* 车子换向 */
+//			Robot.M1_Dirction = NEGETIVE; 
+//			Robot.M2_Dirction = NEGETIVE;
+//			if(Robot.RobotMode == ATTACK_MODE)  /*  攻击模式和推棋子模式的回退速度不一样 */
+//			{
+//				Robot.M1_pwm = 400;
+//				Robot.M2_pwm = 380;
+//				robot_MotorMove(100);
+//			}else if(Robot.RobotMode == CHESS_MODE)
+//			{
+//				Robot.M1_pwm = 300;   /* 首先往后退一点 */
+//				Robot.M2_pwm = 300;
+//				robot_MotorMove(200);  
+//				
+//				Robot.M2_Dirction = POSITIVE;  /* 然后转动一个角度 */
+//				robot_MotorMove(50);
+//				Robot.M2_Dirction = NEGETIVE;  /* 恢复电机转动方向 */
+//			}
+//		}break;
 		case FRONT_RIGHT:  /* 右前方出界 */
 		{
 			Robot.dirction = NEGETIVE;
@@ -211,29 +212,35 @@ void robot_OutOfBounds(uint8_t RobotPos)
 				robot_MotorMove(100);
 			}else if(Robot.RobotMode == CHESS_MODE)
 			{
-				Robot.M1_pwm = 260;
-				Robot.M2_pwm = 400;
-				robot_MotorMove(200);
+				Robot.M1_pwm = 240;
+				Robot.M2_pwm = 200;
+				robot_MotorMove(300);
+				
+//				Robot.M2_Dirction = POSITIVE;  /* 然后转动一个角度 */
+//				robot_MotorMove(100);
+//				Robot.M2_Dirction = NEGETIVE;  /* 恢复电机转动方向 */
 			}
 		}break;
-		case BACK_LEFT:
-		{
-			Robot.dirction = POSITIVE;
-			Robot.M1_Dirction = POSITIVE;
-			Robot.M2_Dirction = POSITIVE;
-			if(Robot.RobotMode == ATTACK_MODE)
-			{
-				Robot.M1_pwm = 400;
-				Robot.M2_pwm = 380;
-				robot_MotorMove(100);
-			}else if(Robot.RobotMode == CHESS_MODE)
-			{
-				Robot.M1_pwm = 400;
-				Robot.M2_pwm = 260;
-				robot_MotorMove(200);
-			}
-		}break;
-		case BACK_RIGHT:
+		case BACK_LEFT:  /* 左后方出界 */
+//		{
+//			Robot.dirction = POSITIVE;
+//			Robot.M1_Dirction = POSITIVE;
+//			Robot.M2_Dirction = POSITIVE;
+//			if(Robot.RobotMode == ATTACK_MODE)
+//			{
+//				Robot.M1_pwm = 400;
+//				Robot.M2_pwm = 380;
+//				robot_MotorMove(100);
+//			}else if(Robot.RobotMode == CHESS_MODE)
+//			{
+//				Robot.M1_pwm = 300;
+//				Robot.M2_pwm = 300;
+//				robot_MotorMove(200);
+//				
+//				
+//			}
+//		}break;
+		case BACK_RIGHT:   /* 右后方出界 */
 		{
 			Robot.dirction = POSITIVE;
 			Robot.M1_Dirction = POSITIVE;
@@ -245,9 +252,13 @@ void robot_OutOfBounds(uint8_t RobotPos)
 				robot_MotorMove(100);
 			}else if(Robot.RobotMode == CHESS_MODE)
 			{
-				Robot.M1_pwm = 260;
-				Robot.M2_pwm = 400;
-				robot_MotorMove(200);
+				Robot.M1_pwm = 200;
+				Robot.M2_pwm = 240;
+				robot_MotorMove(300);
+				
+//				Robot.M1_Dirction = NEGETIVE;
+//				robot_MotorMove(100);
+//				Robot.M1_Dirction = POSITIVE;
 			}
 		}break;
 		default:break;
@@ -257,7 +268,7 @@ void robot_OutOfBounds(uint8_t RobotPos)
 
 /*
 *********************************************************************************************************
-*                                          
+*                                          robot_UpPlatform
 *
 * Description: 
 *             
@@ -269,23 +280,24 @@ void robot_OutOfBounds(uint8_t RobotPos)
 void robot_UpPlatform(void)
 {
 	//	runActionGroup(0,1);
-	while((ADC1ConvValue[2]>>4) < 130 || (ADC1ConvValue[7]>>4) <130)
+	while((ADC1ConvValue[ROBOT_RANG_H]>>4) < 130 || (ADC1ConvValue[ROBOT_RANG_D]>>4) <130)
 	{
+		printf("Ranging H:%d       D:%d\r\n",ADC1ConvValue[ROBOT_RANG_H]>>4, ADC1ConvValue[ROBOT_RANG_D]>>4);
 		LED0 = ~LED0;
 		LED1 = ~LED1;
 		LED2 = ~LED2;
 		delay_ms(50);
 	}
-	Robot.M1_pwm = 340;
-	Robot.M2_pwm = 300;
-	robot_MotorMove(100);
+	Robot.M1_pwm = 400;
+	Robot.M2_pwm = 350;
+	robot_MotorMove(1000);
 //	runActionGroup(1,1);
 	Robot.M2_pwm = 240;
 	Robot.M1_pwm = 200;
 }
 /*
 *********************************************************************************************************
-*                                          
+*                                        robot_MotorMove  
 *
 * Description: 
 *             
@@ -307,11 +319,11 @@ void robot_MotorMove(uint16_t time)
 }
 
 
-uint32_t count = 0x00;
+//uint32_t count = 0x00;
 
 /*
 *********************************************************************************************************
-*                                          
+*                                        robot_WaitChessFail  
 *
 * Description: 
 *             
@@ -320,95 +332,95 @@ uint32_t count = 0x00;
 * Note(s)   : 
 *********************************************************************************************************
 */
-void robot_WaitChessFail(uint8_t ChessPos)
-{
-	switch(ChessPos)
-	{
-		case FRONT_LEFT:
-		{
-				if(IsRangDetected(ROBOT_RANG_A) || IsRangDetected(ROBOT_RANG_B) || IsRangDetected(ROBOT_RANG_C))//????????,????????????????
-				{
-					while(IsPhoDetected(ROBOT_PHO_C))//???????????
-					{
-						Robot.M1_Dirction = NEGETIVE;
-						Robot.M2_Dirction = POSITIVE;
-						Robot.dirction = POSITIVE;
-						Robot.M1_pwm = 40;
-						Robot.M2_pwm = 80;
-						robot_MotorMove(10);
-						
-						count ++;
-						if(count >40) //???????????????????,?????,?????
-						{
-							count = 0; break;
-						}
-					}
-				}
-		}break;
-		case FRONT_RIGHT:
-		{
-				if(IsRangDetected(ROBOT_RANG_A) || IsRangDetected(ROBOT_RANG_B) || IsRangDetected(ROBOT_RANG_C))
-				{
-					while(!IsPhoDetected(ROBOT_PHO_A))
-					{
-						Robot.M1_Dirction = POSITIVE;
-						Robot.M2_Dirction = NEGETIVE;
-						Robot.dirction = POSITIVE;
-						Robot.M1_pwm = 80;
-						Robot.M2_pwm = 40;
-						robot_MotorMove(10);
-						
-						count ++;
-						if(count >40)
-						{
-							count = 0; break;
-						}
-					}
-				}
-		}break;
-		case BACK_LEFT:
-		{
-				if(IsRangDetected(ROBOT_RANG_I) || IsRangDetected(ROBOT_RANG_J) || IsRangDetected(ROBOT_RANG_K))
-				{
-					while(!IsPhoDetected(ROBOT_PHO_J))
-					{
-						Robot.M2_Dirction = NEGETIVE;
-						Robot.M1_Dirction = POSITIVE;
-						Robot.dirction = NEGETIVE;
-						Robot.M1_pwm = 40;
-						Robot.M2_pwm = 80;
-						robot_MotorMove(10);
-						
-						count ++;
-						if(count >40)
-						{
-							count = 0; break;
-						}
-					}
-				}
-		}break;
-		case BACK_RIGHT:
-		{
-				if(IsRangDetected(ROBOT_RANG_I) || IsRangDetected(ROBOT_RANG_J) || IsRangDetected(ROBOT_RANG_K))
-				{
-					while(!IsPhoDetected(ROBOT_PHO_H))
-					{
-						Robot.M2_Dirction = POSITIVE;
-						Robot.M1_Dirction = NEGETIVE;
-						Robot.dirction = NEGETIVE;
-						Robot.M2_pwm = 40;
-						Robot.M1_pwm = 80;
-						robot_MotorMove(10);
-						
-						count ++;
-						if(count >40)
-						{
-							count = 0; break;
-						}
-					}
-				}
-		}break;
-		default:break;
-	}
-}
+//void robot_WaitChessFail(uint8_t ChessPos)
+//{
+//	switch(ChessPos)
+//	{
+//		case FRONT_LEFT:
+//		{
+//				if(IsRangDetected(ROBOT_RANG_A) || IsRangDetected(ROBOT_RANG_B) || IsRangDetected(ROBOT_RANG_C))//????????,????????????????
+//				{
+//					while(IsPhoDetected(ROBOT_PHO_C))//???????????
+//					{
+//						Robot.M1_Dirction = NEGETIVE;
+//						Robot.M2_Dirction = POSITIVE;
+//						Robot.dirction = POSITIVE;
+//						Robot.M1_pwm = 40;
+//						Robot.M2_pwm = 80;
+//						robot_MotorMove(10);
+//						
+//						count ++;
+//						if(count >40) //???????????????????,?????,?????
+//						{
+//							count = 0; break;
+//						}
+//					}
+//				}
+//		}break;
+//		case FRONT_RIGHT:
+//		{
+//				if(IsRangDetected(ROBOT_RANG_A) || IsRangDetected(ROBOT_RANG_B) || IsRangDetected(ROBOT_RANG_C))
+//				{
+//					while(!IsPhoDetected(ROBOT_PHO_A))
+//					{
+//						Robot.M1_Dirction = POSITIVE;
+//						Robot.M2_Dirction = NEGETIVE;
+//						Robot.dirction = POSITIVE;
+//						Robot.M1_pwm = 80;
+//						Robot.M2_pwm = 40;
+//						robot_MotorMove(10);
+//						
+//						count ++;
+//						if(count >40)
+//						{
+//							count = 0; break;
+//						}
+//					}
+//				}
+//		}break;
+//		case BACK_LEFT:
+//		{
+//				if(IsRangDetected(ROBOT_RANG_I) || IsRangDetected(ROBOT_RANG_J) || IsRangDetected(ROBOT_RANG_K))
+//				{
+//					while(!IsPhoDetected(ROBOT_PHO_J))
+//					{
+//						Robot.M2_Dirction = NEGETIVE;
+//						Robot.M1_Dirction = POSITIVE;
+//						Robot.dirction = NEGETIVE;
+//						Robot.M1_pwm = 40;
+//						Robot.M2_pwm = 80;
+//						robot_MotorMove(10);
+//						
+//						count ++;
+//						if(count >40)
+//						{
+//							count = 0; break;
+//						}
+//					}
+//				}
+//		}break;
+//		case BACK_RIGHT:
+//		{
+//				if(IsRangDetected(ROBOT_RANG_I) || IsRangDetected(ROBOT_RANG_J) || IsRangDetected(ROBOT_RANG_K))
+//				{
+//					while(!IsPhoDetected(ROBOT_PHO_H))
+//					{
+//						Robot.M2_Dirction = POSITIVE;
+//						Robot.M1_Dirction = NEGETIVE;
+//						Robot.dirction = NEGETIVE;
+//						Robot.M2_pwm = 40;
+//						Robot.M1_pwm = 80;
+//						robot_MotorMove(10);
+//						
+//						count ++;
+//						if(count >40)
+//						{
+//							count = 0; break;
+//						}
+//					}
+//				}
+//		}break;
+//		default:break;
+//	}
+//}
 
